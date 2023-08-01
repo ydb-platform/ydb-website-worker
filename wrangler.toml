@@ -1,7 +1,6 @@
 name = "ydb-website-worker"
 compatibility_date = "2023-07-10"
 account_id = "d51ba5ab92acf0ff22285f6009097b1a"
-# workers_dev = true
 main = "./src/handler.ts"
 
 [env.production]
