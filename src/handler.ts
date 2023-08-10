@@ -1,4 +1,5 @@
 import config from './config';
+import { changeUrl } from './util';
 
 
 async function handleBlogRedirectRequest(request: Request): Promise<Response> {
@@ -9,8 +10,19 @@ async function handleBlogRedirectRequest(request: Request): Promise<Response> {
   }
 }
 
+async function handleInstallRequest(request: Request): Promise<Response> {
+  let requested_url = new URL(request.url);
+  if (requested_url.pathname == '/') {
+    return fetch(changeUrl(request, config.install_sh_location.server));
+  } else if (requested_url.pathname == '/cli') {
+    return fetch(changeUrl(request, config.install_sh_location.cli));
+  }
+  return new Response('404 Not Found', {status: 404})
+}
+
 const hostname_mapping = new Map([
   ['blog-redirect.ydb.tech', handleBlogRedirectRequest],
+  ['install.ydb.tech', handleInstallRequest],
 ]);
 
 async function default_response(request: Request): Promise<Response> {
