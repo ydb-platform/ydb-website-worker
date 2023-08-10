@@ -4,4 +4,7 @@ account_id = "d51ba5ab92acf0ff22285f6009097b1a"
 main = "./src/handler.ts"
 
 [env.production]
-route = "blog-redirect.ydb.tech/*"
+routes = [
+    "blog-redirect.ydb.tech/*",
+    "install.ydb.tech/*"
+]
