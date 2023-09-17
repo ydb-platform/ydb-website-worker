@@ -2,7 +2,7 @@ export default {
   domain: 'ydb.tech',
 
   blog_location: {
-    en: 'https://blog.ydb.tech',
+    en: 'https://medium.com/ydbtech',
     ru: 'https://habr.com/ru/companies/ydb/articles/'
   },
 
