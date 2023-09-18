@@ -4,9 +4,9 @@ import { changeUrl } from './util';
 
 async function handleBlogRedirectRequest(request: Request): Promise<Response> {
   if (request.cf.country === 'RU') {
-    return Response.redirect(config.blog_location.ru, 301);
+    return Response.redirect(config.blog_location.ru, 307);
   } else {
-    return Response.redirect(config.blog_location.en, 301);
+    return Response.redirect(config.blog_location.en, 307);
   }
 }
 
