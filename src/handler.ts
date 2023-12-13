@@ -14,8 +14,12 @@ async function handleInstallRequest(request: Request): Promise<Response> {
   let requested_url = new URL(request.url);
   if (requested_url.pathname == '/') {
     return fetch(changeUrl(request, config.install_sh_location.server));
-  } else if (requested_url.pathname == '/cli') {
+  } 
+  else if (requested_url.pathname == '/cli') {
     return fetch(changeUrl(request, config.install_sh_location.cli));
+  }
+  else if (requested_url.pathname == '/cli-win') {
+    return fetch(changeUrl(request, config.install_sh_location.cli_win));
   }
   return new Response('404 Not Found', {status: 404})
 }
