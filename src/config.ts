@@ -8,7 +8,8 @@ export default {
 
   install_sh_location: {
     server: new URL('https://binaries.ydb.tech/local_scripts/install.sh'),
-    cli: new URL('https://storage.yandexcloud.net/yandexcloud-ydb/install.sh')
+    cli: new URL('https://storage.yandexcloud.net/yandexcloud-ydb/install.sh'),
+    cli_win: new URL('https://storage.ydb.tech/yandexcloud-ydb/install.ps1')
   },
 
   production: true,
