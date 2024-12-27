@@ -10,7 +10,8 @@ export default {
     server: new URL('https://binaries.ydb.tech/local_scripts/install.sh'),
     cli: new URL('https://storage.yandexcloud.net/yandexcloud-ydb/install.sh'),
     cli_win: new URL('https://storage.yandexcloud.net/yandexcloud-ydb/install.ps1'),
-    dstool: new URL('https://storage.yandexcloud.net/yandexcloud-ydb-dstool/install.sh')
+    dstool: new URL('https://storage.yandexcloud.net/yandexcloud-ydb-dstool/install.sh'),
+    dstool_win: new URL('https://storage.yandexcloud.net/yandexcloud-ydb-dstool/install.ps1')
   },
 
   production: true,
