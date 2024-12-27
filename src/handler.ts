@@ -24,6 +24,9 @@ async function handleInstallRequest(request: Request): Promise<Response> {
   else if (requested_url.pathname == '/dstool') {
     return fetch(changeUrl(request, config.install_sh_location.dstool));
   }
+  else if (requested_url.pathname == '/dstool-windows' || requested_url.pathname == '/dstool-win') {
+    return fetch(changeUrl(request, config.install_sh_location.dstool_win));
+  }
   return new Response('404 Not Found', {status: 404})
 }
 
