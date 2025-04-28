@@ -19,13 +19,8 @@ export function changeUrl(req: Request, new_url: URL): Request {
   }
 
 export function withCors(response: Response): Response {
-  const allowedOrigins = [
-    'https://ydb.tech',
-    'https://ydb.yandex.ru',
-    'https://ydb-platform--ydb.viewer.diplodoc.com',
-  ];
   const newHeaders = new Headers(response.headers);
-  newHeaders.set('Access-Control-Allow-Origin', allowedOrigins.join(', '));
+  newHeaders.set('Access-Control-Allow-Origin', '*');
   newHeaders.set('Vary', 'Origin');
   return new Response(response.body, { ...response, headers: newHeaders });
 }
