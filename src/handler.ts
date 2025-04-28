@@ -67,7 +67,7 @@ async function handleGithubRequest(request: Request): Promise<Response> {
 const hostname_mapping = new Map([
   ['blog-redirect.ydb.tech', handleBlogRedirectRequest],
   ['install.ydb.tech', handleInstallRequest],
-  ['localhost', handleGithubRequest],
+  ['github.ydb.tech', handleGithubRequest],
 ]);
 
 async function default_response(request: Request): Promise<Response> {
