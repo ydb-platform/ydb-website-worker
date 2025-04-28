@@ -56,7 +56,7 @@ async function handleGithubRequest(request: Request, env?: { GITHUB_TOKEN?: stri
     headers
   });
   if (!apiResp.ok) {
-    return withCors(new Response('404 Not Found', { status: 404 }));
+    return withCors(apiResp);
   }
   const data = await apiResp.json();
   if (data.state === 'open') {
