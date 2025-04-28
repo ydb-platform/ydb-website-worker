@@ -1,5 +1,5 @@
 import config from './config';
-import { changeUrl } from './util';
+import { changeUrl, withCors } from './util';
 
 
 async function handleBlogRedirectRequest(request: Request): Promise<Response> {
@@ -29,7 +29,7 @@ async function handleInstallRequest(request: Request): Promise<Response> {
   else if (requested_url.pathname == '/dstool-windows' || requested_url.pathname == '/dstool-win') {
     return fetch(changeUrl(request, config.install_sh_location.dstool_win));
   }
-  return new Response('404 Not Found', {status: 404})
+  return new Response('404 Not Found', {status: 404});
 }
 
 async function handleGithubRequest(request: Request, env?: { GITHUB_TOKEN?: string }): Promise<Response> {
@@ -56,21 +56,21 @@ async function handleGithubRequest(request: Request, env?: { GITHUB_TOKEN?: stri
     headers
   });
   if (!apiResp.ok) {
-    return new Response('404 Not Found', { status: 404 });
+    return withCors(new Response('404 Not Found', { status: 404 }));
   }
   const data = await apiResp.json();
   if (data.state === 'open') {
     // SVG for minus sign
     const minusSvg = `<?xml version="1.0" encoding="UTF-8"?>\n<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"5\" y=\"11\" width=\"14\" height=\"2\" rx=\"1\" fill=\"#888\"/></svg>`;
-    return new Response(minusSvg, { status: 200, headers: { 'Content-Type': 'image/svg+xml' } });
+    return withCors(new Response(minusSvg, { status: 200, headers: { 'Content-Type': 'image/svg+xml' } }));
   } else if (data.state === 'closed') {
     // SVG for plus sign
     const plusSvg = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"11\" y=\"5\" width=\"2\" height=\"14\" rx=\"1\" fill=\"#4caf50\"/><rect x=\"5\" y=\"11\" width=\"14\" height=\"2\" rx=\"1\" fill=\"#4caf50\"/></svg>`;
-    return new Response(plusSvg, { status: 200, headers: { 'Content-Type': 'image/svg+xml' } });
+    return withCors(new Response(plusSvg, { status: 200, headers: { 'Content-Type': 'image/svg+xml' } }));
   } else {
     // SVG for question mark
     const questionSvg = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"12\" cy=\"12\" r=\"10\" fill=\"#ffc107\"/><text x=\"12\" y=\"17\" text-anchor=\"middle\" font-size=\"14\" fill=\"#fff\" font-family=\"Arial, sans-serif\">?</text></svg>`;
-    return new Response(questionSvg, { status: 200, headers: { 'Content-Type': 'image/svg+xml' } });
+    return withCors(new Response(questionSvg, { status: 200, headers: { 'Content-Type': 'image/svg+xml' } }));
   }
 }
 
@@ -81,7 +81,7 @@ const hostname_mapping = new Map([
 ]);
 
 async function default_response(request: Request): Promise<Response> {
-  return new Response('404 Not Found', {status: 404})
+  return withCors(new Response('404 Not Found', {status: 404}));
 }
 
 const handler = {
