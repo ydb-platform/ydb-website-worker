@@ -32,7 +32,7 @@ async function handleInstallRequest(request: Request): Promise<Response> {
   return new Response('404 Not Found', {status: 404})
 }
 
-async function handleGithubRequest(request: Request): Promise<Response> {
+async function handleGithubRequest(request: Request, env?: { GITHUB_TOKEN?: string }): Promise<Response> {
   const url = new URL(request.url);
   const match = url.pathname.match(/^\/issues\/([^\/]+)\/(\d+)$/);
   if (!match) {
@@ -43,13 +43,17 @@ async function handleGithubRequest(request: Request): Promise<Response> {
   const apiUrl = `https://api.github.com/repos/ydb-platform/${repo}/issues/${issueId}`;
   const incomingHeaders = request.headers;
   const referer = incomingHeaders.get('referer') || undefined;
+  const headers: Record<string, string> = {
+    'Accept': 'application/vnd.github.v3+json',
+    'User-Agent': 'Cloudflare-Workers/1.20230601.0',
+    'Accept-Language': 'en-US,en;q=0.9',
+    ...(referer ? { 'Referer': referer } : {})
+  };
+  if (env && env.GITHUB_TOKEN) {
+    headers['Authorization'] = `Bearer ${env.GITHUB_TOKEN}`;
+  }
   const apiResp = await fetch(apiUrl, {
-    headers: {
-      'Accept': 'application/vnd.github.v3+json',
-      'User-Agent': 'Cloudflare-Workers/1.20230601.0',
-      'Accept-Language': 'en-US,en;q=0.9',
-      ...(referer ? { 'Referer': referer } : {})
-    }
+    headers
   });
   if (!apiResp.ok) {
     return new Response('404 Not Found', { status: 404 });
@@ -81,9 +85,13 @@ async function default_response(request: Request): Promise<Response> {
 }
 
 const handler = {
-  async fetch(request: Request): Promise<Response> {
+  async fetch(request: Request, env?: { GITHUB_TOKEN?: string }): Promise<Response> {
     let url = new URL(request.url);
     const hostname_handler = hostname_mapping.get(url.hostname) || default_response;
+    // Pass env to handler if it accepts it
+    if (hostname_handler === handleGithubRequest) {
+      return handleGithubRequest(request, env);
+    }
     return hostname_handler(request);
   },
 };
