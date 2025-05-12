@@ -54,8 +54,8 @@ async function handleGithubRequest(request: Request, env?: { GITHUB_TOKEN?: stri
   }
   const apiResp = await fetch(apiUrl, {
     headers,
-    // Cloudflare cache for 24h
-    cf: { cacheTtl: 86400, cacheEverything: false },
+    // Cloudflare cache for 6h
+    cf: { cacheTtl: 21600, cacheEverything: false },
   } as any);
   if (!apiResp.ok) {
     return withCors(apiResp);
