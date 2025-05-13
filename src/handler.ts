@@ -66,7 +66,7 @@ async function handleGithubRequest(request: Request, env?: { GITHUB_TOKEN?: stri
     const minusSvg = `<?xml version="1.0" encoding="UTF-8"?>\n<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"5\" y=\"11\" width=\"14\" height=\"2\" rx=\"1\" fill=\"#888\"/></svg>`;
     const headers = new Headers({
       'Content-Type': 'image/svg+xml',
-      'Cache-Control': 'public, max-age=86400, stale-while-revalidate=60',
+      'Cache-Control': 'public, max-age=21600, stale-while-revalidate=60',
     });
     return withCors(new Response(minusSvg, { status: 200, headers }));
   } else if (data.state === 'closed') {
@@ -74,7 +74,7 @@ async function handleGithubRequest(request: Request, env?: { GITHUB_TOKEN?: stri
     const plusSvg = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"11\" y=\"5\" width=\"2\" height=\"14\" rx=\"1\" fill=\"#4caf50\"/><rect x=\"5\" y=\"11\" width=\"14\" height=\"2\" rx=\"1\" fill=\"#4caf50\"/></svg>`;
     const headers = new Headers({
       'Content-Type': 'image/svg+xml',
-      'Cache-Control': 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=60',
+      'Cache-Control': 'public, max-age=21600, s-maxage=21600, stale-while-revalidate=60',
     });
     return withCors(new Response(plusSvg, { status: 200, headers }));
   } else {
@@ -82,7 +82,7 @@ async function handleGithubRequest(request: Request, env?: { GITHUB_TOKEN?: stri
     const questionSvg = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"12\" cy=\"12\" r=\"10\" fill=\"#ffc107\"/><text x=\"12\" y=\"17\" text-anchor=\"middle\" font-size=\"14\" fill=\"#fff\" font-family=\"Arial, sans-serif\">?</text></svg>`;
     const headers = new Headers({
       'Content-Type': 'image/svg+xml',
-      'Cache-Control': 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=60',
+      'Cache-Control': 'public, max-age=21600, s-maxage=21600, stale-while-revalidate=60',
     });
     return withCors(new Response(questionSvg, { status: 200, headers }));
   }
